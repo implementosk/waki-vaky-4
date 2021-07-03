@@ -1,0 +1,38 @@
+<odoo>
+  <data>
+<!--    <record id="add_advance_invoice_lines" model="ir.ui.view">-->
+<!--      <field name="name">add.advance.invoice.lines</field>-->
+<!--      <field name="model">sale.order</field>-->
+<!--      <field name="inherit_id" ref="base.view_partner_form"/>-->
+<!--       <field name="arch" type="xml">-->
+<!--          <data>-->
+<!--            <xpath expr="//field[@name='vat']" position="replace">-->
+<!--              <field name="company_registry"/>-->
+<!--              <field name="vat_id"/>-->
+<!--              <field name="vat"/>-->
+<!--              <field name="vat_payer"/>-->
+<!--            </xpath>-->
+<!--          </data>-->
+<!--       </field>-->
+<!--    </record>-->
+
+    <record id="sale_order_proforma" model="ir.ui.view">
+      <field name="name">sale.order.proforma</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+       <field name="arch" type="xml">
+          <data>
+            <xpath expr="//page[@name='other_information']" position="after">
+              <page id="proforma_tab" string="Pro-forma" name="proforma">
+                <group id="proforma_tab_group">
+                  <group string="Pro-Forma" name="proforma_info_group">
+                    <field name="pro_forma_sent"/>
+                  </group>
+                </group>
+              </page>
+            </xpath>
+          </data>
+       </field>
+    </record>
+  </data>
+</odoo>

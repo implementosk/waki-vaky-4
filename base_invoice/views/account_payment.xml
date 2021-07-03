@@ -1,0 +1,26 @@
+<odoo>
+  <data>
+    <record id="account_payment_extender" model="ir.ui.view">
+      <field name="name">account.payment.extender</field>
+      <field name="model">account.payment</field>
+      <field name="inherit_id" ref="account.view_account_payment_form"/>
+       <field name="arch" type="xml">
+          <data>
+            <xpath expr="//button[@name='action_draft']" position="after">
+              <button
+                name="button_proof"
+                string="Proof of Payment Received"
+                type="object"
+                groups="account.group_account_invoice"
+                attrs="{'invisible' : ['|', ('from_advance_invoice', '=', False), ('state', 'not in', ('posted'))]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='communication']" position="after">
+              <field name="from_advance_invoice"/>
+              <field name="advance_invoice_id"/>
+            </xpath>
+          </data>
+       </field>
+    </record>
+  </data>
+</odoo>

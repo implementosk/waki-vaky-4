@@ -1,0 +1,16 @@
+<odoo>
+  <data>
+    <record id="account_journal_add_advance_type" model="ir.ui.view">
+      <field name="name">account.journal.form.add.advance.type</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.view_account_journal_form"/>
+       <field name="arch" type="xml">
+          <data>
+            <xpath expr="//field[@name='type']" position="after">
+              <field name="advance_type"/>
+            </xpath>
+          </data>
+       </field>
+    </record>
+  </data>
+</odoo>

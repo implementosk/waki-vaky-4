@@ -1,0 +1,145 @@
+<odoo>
+  <data>
+    <!-- Standard -->
+    <template id="inherit_standard_background" inherit_id="web.external_layout_standard">
+      <xpath expr="//div[@name='company_address']" position="replace">
+        <div class="col-6 pt-3" name="company_address">
+          <t t-if="address_title">
+            <t t-raw="address_title"/>
+          </t>
+          <div t-field="company.partner_id"
+               t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+          <t t-if="company.company_registry">
+            Company Registry: <span t-field="company.company_registry"/><br/>
+          </t>
+          <t t-if="company.vat_id">
+            Tax ID: <span t-field="company.vat_id"/><br/>
+          </t>
+          <t t-if="company.vat">
+            <span t-if="o.company_id.country_id.vat_label" t-esc="company.country_id.vat_label"/>
+            <t t-else="">Vat ID</t>: <span t-field="company.vat"/>
+          </t>
+        </div>
+      </xpath>
+
+      <xpath expr="//ul[@class='list-inline mb4']" position="replace">
+        <ul class="list-inline mb4">
+          <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
+               adding d-inline class fixes the problem-->
+          <li t-if="company.phone" class="list-inline-item d-inline">Phone: <span t-field="company.phone"/></li>
+          <li t-if="company.email" class="list-inline-item d-inline">Email: <span t-field="company.email"/></li>
+          <li t-if="company.website" class="list-inline-item d-inline">Web: <span t-field="company.website"/></li>
+        </ul>
+      </xpath>
+    </template>
+    <!-- Standard -->
+
+    <!-- Background -->
+    <template id="inherit_background_template" inherit_id="web.external_layout_background">
+<!--      <xpath expr="//div[@class='header']" position="replace">-->
+      <xpath expr="//div[@t-attf-class='o_company_#{company.id}_layout header']" position="replace">
+        <div t-attf-class="o_company_#{company.id}_layout header">
+          <div class="o_background_header row">
+            <div class="col-3">
+              <div class="float-right">
+                <h3 class="mt0 text-right" t-field="company.report_header"/>
+              </div>
+              <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo"/>
+            </div>
+
+            <div class="col-3 mb-3 float-left">
+              <div class="company_address">
+                <t t-if="address_title">
+                  <t t-raw="address_title"/>
+                </t>
+                <strong t-field="company.partner_id.name"/>
+                <span t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true}"/>
+              </div>
+            </div>
+
+            <div class="col-3 float-left">
+              <t t-if="address_title">
+                <h3 style="color:white !important;">.</h3>
+                <br/>
+              </t>
+              <t t-else="">
+                <br/>
+              </t>
+              <t t-if="company.company_registry">
+                Company Registry: <span t-field="company.company_registry"/><br/>
+              </t>
+
+              <t t-if="company.vat_id">
+                Tax ID: <span t-field="company.vat_id"/><br/>
+              </t>
+
+              <t t-if="company.vat">
+                <span t-if="o.company_id.country_id.vat_label" t-esc="company.country_id.vat_label"/>
+                <t t-else="">Vat ID</t>: <span t-field="company.vat"/>
+              </t>
+            </div>
+            <div class="clearfix mb8"/>
+          </div>
+        </div>
+      </xpath>
+
+      <xpath expr="//ul[@class='list-inline']" position="replace">
+        <ul class="list-inline">
+          <li t-if="company.phone" class="list-inline-item"><i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/> <span t-field="company.phone"/></li>
+          <li t-if="company.email" class="list-inline-item"><i class="fa fa-at" role="img" aria-label="Email" title="Email"/> <span t-field="company.email"/></li>
+          <li t-if="company.website" class="list-inline-item"><i class="fa fa-globe" role="img" aria-label="Website" title="Website"/> <span t-field="company.website"/></li>
+        </ul>
+      </xpath>
+    </template>
+    <!-- Background -->
+
+    <!-- Boxed -->
+    <template id="inherit_boxed_template" inherit_id="web.external_layout_boxed">
+      <xpath expr="//div[@name='company_address']" position="replace">
+        <div name="company_address" class="mb4">
+          <t t-if="address_title">
+            <t t-raw="address_title"/>
+          </t>
+          <span class="company_address" t-field="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+          <t t-if="company.company_registry">
+            Company Registry: <span t-field="company.company_registry"/><br/>
+          </t>
+          <t t-if="company.vat_id">
+            Tax ID: <span t-field="company.vat_id"/><br/>
+          </t>
+          <t t-if="company.vat">
+            <span t-if="o.company_id.country_id.vat_label" t-esc="company.country_id.vat_label"/>
+            <t t-else="">Vat ID</t>: <span t-field="company.vat"/>
+          </t>
+        </div>
+      </xpath>
+
+      <xpath expr="//ul[@class='list-inline']" position="replace">
+        <ul class="list-inline">
+          <li t-if="company.phone" class="list-inline-item">Tel: <span t-field="company.phone"/></li>
+          <li t-if="company.email" class="list-inline-item">Mail: <span t-field="company.email"/></li>
+          <li t-if="company.website" class="list-inline-item">Web: <span t-field="company.website"/></li>
+        </ul>
+      </xpath>
+    </template>
+    <!-- Boxed -->
+
+    <!-- Clean -->
+    <template id="inherit_clean_template" inherit_id="web.external_layout_clean">
+      <xpath expr="//div[@name='company_address']" position="replace">
+        <div class="col-5 offset-1" name="company_address">
+          <ul class="list-unstyled">
+            <t t-if="address_title">
+              <t t-raw="address_title"/>
+            </t>
+            <strong><li t-if="company.name"><span t-field="company.name"/></li></strong>
+            <li t-if="company.vat_id">Tax ID: <span t-field="company.vat_id"/></li>
+            <li t-if="company.company_registry">Company Registry: <span t-field="company.company_registry"/></li>
+            <li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'Vat ID'"/>: <span t-field="company.vat"/></li>
+          </ul>
+        </div>
+      </xpath>
+    </template>
+    <!-- Clean -->
+  </data>
+</odoo>

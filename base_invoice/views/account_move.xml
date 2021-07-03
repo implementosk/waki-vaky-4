@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+    <record id="account_move_add_delivery_date" model="ir.ui.view">
+      <field name="name">account.move.form.add.delivery.date</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+       <field name="arch" type="xml">
+          <data>
+            <xpath expr="//field[@name='invoice_date']" position="after">
+              <field name="account_delivery_date" attrs="{'readonly': [('state', 'not in', ['draft'])]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='invoice_origin']" position="after">
+              <field name="advance_invoice" attrs="{'invisible': [('advance_invoice', '!=', True)]}"/>
+              <field name="proof_invoice" attrs="{'invisible': [('advance_invoice', '!=', False)]}"/>
+              <field name="order_advance_id"/>
+              <field name="advance_invoice_id" attrs="{'invisible': [('advance_invoice', '!=', False)]}"/>
+              <field name="proof_invoice_ids" attrs="{'invisible': [('advance_invoice', '!=', True)]}"/>
+            </xpath>
+
+<!--            <xpath expr="//button[@name='button_draft']" position="after">-->
+<!--              <button-->
+<!--                name="button_proof"-->
+<!--                string="Proof of Payment Received"-->
+<!--                type="object"-->
+<!--                groups="account.group_account_invoice"-->
+<!--                attrs="{'invisible' : ['|', ('advance_invoice', '=', False), ('state', 'not in', ('posted'))]}"/>-->
+<!--            </xpath>-->
+          </data>
+       </field>
+    </record>
+  </data>
+</odoo>

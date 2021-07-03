@@ -1,0 +1,33 @@
+<odoo>
+  <data>
+    <template id="inherit_report_invoice_document" inherit_id="account.report_invoice_document" priority="1">
+      <xpath expr="//t[@t-set='address']" position="before">
+        <t t-set="address_title">
+          <h5>Supplier</h5>
+        </t>
+      </xpath>
+
+      <xpath expr="//address[@t-field='o.partner_id']" position="replace">
+        <h5>Subscriber</h5>
+        <address class="mb-0 pb-0" t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"/>
+        <t t-if="o.partner_id.company_registry">
+          Company Registry: <span t-field="o.partner_id.company_registry"/><br/>
+        </t>
+        <t t-if="o.partner_id.vat_id">
+          Tax ID: <span t-field="o.partner_id.vat_id"/><br/>
+        </t>
+      </xpath>
+
+      <xpath expr="//div[@t-if='o.partner_id.vat']" position="attributes">
+        <attribute name="class"> </attribute>
+      </xpath>
+
+      <xpath expr="//div[@name='due_date']" position="after">
+        <div class="col-auto mw-100 mb-2" t-if="o.account_delivery_date" name="account_delivery_date">
+          <strong>Delivery Date:</strong>
+          <p class="m-0" t-field="o.account_delivery_date"/>
+        </div>
+      </xpath>
+    </template>
+  </data>
+</odoo>
